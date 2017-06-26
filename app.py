@@ -12,7 +12,7 @@ from urllib.error import HTTPError
 
 import json
 import os
-
+import requests
 from flask import Flask
 from flask import request
 from flask import make_response
@@ -88,9 +88,11 @@ def search(query):
     budgetMin="5000"
     budgetMax="10000"
     html="http://www.magicbricks.com/property-for-rent/residential-real-estate?bedroom="+bhk+"&proptype=Residential-House,Villa&cityName="+city+"&BudgetMin="+budgetMin+"&BudgetMax="+budgetMax;
-    req = urllib.request.Request(html, headers={'User-Agent': 'Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Mobile Safari/<WebKit Rev>'})
+    #req = urllib.request.Request(html, headers={'User-Agent': 'Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Mobile Safari/<WebKit Rev>'})
     #print(html)
-    soup = BeautifulSoup(urlopen(req).read(),"html.parser")
+    #soup = BeautifulSoup(urlopen(req).read(),"html.parser")
+    content = requests.post(html,headers={'User-Agent': 'Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Mobile Safari/<WebKit Rev>'}).content
+    soup = BeautifulSoup(content,"html.parser")
     projLink=[]
     projDetail=[]
     projImage=[]
