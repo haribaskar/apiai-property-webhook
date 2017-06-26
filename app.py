@@ -34,10 +34,10 @@ def webhook():
     #print(json.dumps(req, indent=4))
 
     res = processRequest(req)
-    print(res)
-    print("*********************")
+    #print(res)
+    #print("*********************")
     #res = json.dumps(res, indent=4)
-    print(res)
+    #print(res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
@@ -76,7 +76,7 @@ def makeWebhookResult(data):
     
     #print("Response:")
     #print(speech)
-    print(len(data[0]))
+    #print(len(data[0]))
     return "{"+buildJson(data[0],data[1],data[2],data[3],data[4])+"}"
 	  
 
@@ -89,7 +89,7 @@ def search(query):
     budgetMax="10000"
     html="http://www.magicbricks.com/property-for-rent/residential-real-estate?bedroom="+bhk+"&proptype=Residential-House,Villa&cityName="+city+"&BudgetMin="+budgetMin+"&BudgetMax="+budgetMax;
     req = urllib.request.Request(html, headers={'User-Agent': 'Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Mobile Safari/<WebKit Rev>'})
-    print(html)
+    #print(html)
     soup = BeautifulSoup(urlopen(req).read(),"html.parser")
     projLink=[]
     projDetail=[]
