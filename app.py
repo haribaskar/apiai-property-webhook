@@ -53,16 +53,23 @@ def processRequest(req):
     #    return {"action is empty"}
     dict={}
     result = req.get("result").get("parameters")
+    max_currency =result.get("max_currency")
+    max_budget =result.get("max_budget")
     resolvedQuery=req.get("result").get("resolvedQuery")
     location =result.get("location")
     dict["location"]=location
     bhk =result.get("property-size").get("number")
+    unit =result.get("property-size").get("unit")
     dict["bhk"]=bhk
     propertyType =result.get("property-type")
     dict["propertyType"]=bhk
-    #if query is None:
-     #   return None
-    result=search(resolvedQuery)
+    if max_currency is None:
+         max_currency=""
+    if max_budget is None:
+         max_budget=""
+    searchQuery=str(bhk)+" "+str(unit)+" "+str(propertyType)+" near "+str(location)+" "+str(max_budget)+" "+str(max_currency)
+    print(searchQuery)
+    result=search(searchQuery)
     
     #data = json.loads(req)
     res = makeWebhookResult(result)
