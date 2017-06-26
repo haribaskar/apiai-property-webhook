@@ -117,16 +117,8 @@ def buildJson(v):
     str +="\"messages\": ["
     for i in range(len(v)):
             str +="{ \
-  \"type\": 1, \
-  \"title\": \""+v[i]+"\", \
-  \"subtitle\": \""+v[i]+"\",\
-  \"imageUrl\": \""+v[i]+"\",\
-  \"buttons\": [\
-    {\
-      \"text\": \"link\",\
-      \"postback\": \""+v[i]+"\"\
-    }\
-  ]\
+  \"type\": 0, \
+  \"speech\": \""+v[i]+"\", \
 },"
     str =str[:-1]+"],\"speech\": \"Here you go\",\"displayText\": \"\",\"data\": \"data\",\"contextOut\": [],\
     \"source\": \"apiai-search-webhook\" "
