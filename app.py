@@ -118,7 +118,7 @@ def buildJson(v):
     for i in range(len(v)):
             str +="{ \
   \"type\": 0, \
-  \"speech\": \""+v[i]+"\", \
+  \"speech\": \""+v[i]+"\" \
 },"
     str =str[:-1]+"],\"speech\": \"Here you go\",\"displayText\": \"\",\"data\": \"data\",\"contextOut\": [],\
     \"source\": \"apiai-search-webhook\" "
