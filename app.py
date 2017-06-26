@@ -73,41 +73,35 @@ def processRequest(req):
 
 
 def makeWebhookResult(data):
-    
+    print(data)
     #print("Response:")
     #print(speech)
     #print(len(data[0]))
-    return "{"+buildJson(data[0],data[1],data[2],data[3],data[4])+"}"
+    return "{"+buildJson(data[0])+"}"
 	  
 
 	        
 
 def search(query):
-    bhk="2"
-    city="chennai"
-    budgetMin="5000"
-    budgetMax="10000"
-    html="http://www.magicbricks.com/property-for-rent/residential-real-estate?bedroom="+bhk+"&proptype=Residential-House,Villa&cityName="+city+"&BudgetMin="+budgetMin+"&BudgetMax="+budgetMax;
-    #req = urllib.request.Request(html, headers={'User-Agent': 'Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Mobile Safari/<WebKit Rev>'})
-    #print(html)
-    #soup = BeautifulSoup(urlopen(req).read(),"html.parser")
-    content = requests.post(html,headers={'User-Agent': 'Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Mobile Safari/<WebKit Rev>'}).content
-    soup = BeautifulSoup(content,"html.parser")
+    query="find apartments in bangalore"
+    query=query.strip().split()
+    query="+".join(query)
+    html="https://www.google.co.in/search?q="+query
+    req = urllib.request.Request(html, headers={'User-Agent': 'Mozilla/5.0 '})
+    soup = BeautifulSoup(urlopen(req).read(),"html.parser")
     projLink=[]
     projDetail=[]
     projImage=[]
     projDesc=[]
     projDescList=[]
     project=[]
-    for item in soup.find_all('a',attrs={'class':'resultDetailLink'}):
-            projDetail.append(item.h3.text.replace("\n",""))
-            projLink.append("http://m.magicbricks.com"+item["href"])
-    for item in soup.find_all('div',attrs={'class':'projImage'}):
-            projImage.append(item["data-original"])
-    for item in soup.find_all('div',attrs={'class' : 'propertyDesc_Less'}):
-            projDesc.append(item.text)
-    for item in soup.find_all('div',attrs={'class' : 'projectDescListing'}):
-            projDescList.append(item.text)
+    h3tags = soup.find_all( 'h3', class_='r' )
+    for h3 in h3tags:
+          try:
+              projLink.append( re.search('url\?q=(.+?)\&sa', h3.a['href']).group(1) )
+          except:
+              continue
+
     project.append(projLink)
     project.append(projDetail)
     project.append(projImage)
@@ -117,15 +111,16 @@ def search(query):
 
     return project
 
-def buildJson(v,w,x,y,z):
+def buildJson(v):
+    print(v)
     str=""
     str +="\"messages\": ["
-    for i in range(10):
+    for i in range(len(v)):
             str +="{ \
   \"type\": 1, \
-  \"title\": \""+w[i]+"\", \
-  \"subtitle\": \""+y[i]+"\",\
-  \"imageUrl\": \""+x[i]+"\",\
+  \"title\": \""+v[i]+"\", \
+  \"subtitle\": \""+v[i]+"\",\
+  \"imageUrl\": \""+v[i]+"\",\
   \"buttons\": [\
     {\
       \"text\": \"link\",\
