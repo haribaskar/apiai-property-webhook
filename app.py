@@ -53,7 +53,7 @@ def processRequest(req):
     #    return {"action is empty"}
     dict={}
     result = req.get("result").get("parameters")
-    
+    resolvedQuery=req.get("result").get("resolvedQuery")
     location =result.get("location")
     dict["location"]=location
     bhk =result.get("property-size").get("number")
@@ -62,7 +62,7 @@ def processRequest(req):
     dict["propertyType"]=bhk
     #if query is None:
      #   return None
-    result=search(dict)
+    result=search(resolvedQuery)
     
     #data = json.loads(req)
     res = makeWebhookResult(result)
@@ -77,13 +77,13 @@ def makeWebhookResult(data):
     #print("Response:")
     #print(speech)
     #print(len(data[0]))
-    return "{"+buildJson(data[0])+"}"
+    return "{"+buildJson(data[0],data[1])+"}"
 	  
 
 	        
 
 def search(query):
-    query="find apartments in bangalore"
+    
     query=query.strip().split()
     query="+".join(query)
     html="https://www.google.co.in/search?q="+query
@@ -98,6 +98,7 @@ def search(query):
     h3tags = soup.find_all( 'h3', class_='r' )
     for h3 in h3tags:
           try:
+              projDetail.append(h3.a.text)
               projLink.append( re.search('url\?q=(.+?)\&sa', h3.a['href']).group(1) )
           except:
               continue
@@ -111,14 +112,14 @@ def search(query):
 
     return project
 
-def buildJson(v):
-    print(v)
+def buildJson(v,w):
+    
     str=""
     str +="\"messages\": ["
     for i in range(len(v)):
             str +="{ \
-  \"type\": 3, \
-  \"imageUrl\": \""+v[i]+"\" \
+  \"type\": 0, \
+  \"speech\": \""+w[i]+"\n"+v[i]+"\" \
 },"
     str =str[:-1]+"],\"speech\": \"Here you go\",\"displayText\": \"\",\"data\": \"data\",\"contextOut\": [],\
     \"source\": \"apiai-search-webhook\" "
