@@ -115,15 +115,12 @@ def search(query):
 def buildJson(v,w):
     
     str=""
-    str +="\"messages\": ["
     for i in range(len(v)):
-            str +="{ \
-  \"type\": 0, \
-  \"speech\": \""+w[i]+"\n"+v[i]+"\" \
-},"
-    str =str[:-1]+"],\"speech\": \"Here you go\",\"imageUrl\": \"https://www.google.co.in/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png\",\"displayText\": \"\",\"data\": \"data\",\"contextOut\": [],\
+            str +=w[i]+"\n"+v[i]
+
+    return "\"speech\": \""+str+"\",\"imageUrl\": \"https://www.google.co.in/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png\",\"displayText\": \"\",\"data\": \"data\",\"contextOut\": [],\
     \"source\": \"apiai-search-webhook\" "
-    return str         
+           
        
 
 
