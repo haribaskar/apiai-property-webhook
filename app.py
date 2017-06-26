@@ -117,7 +117,7 @@ def buildJson(v):
     str +="\"messages\": ["
     for i in range(len(v)):
             str +="{ \
-  \"type\": 0, \
+  \"type\": 3, \
   \"imageUrl\": \""+v[i]+"\" \
 },"
     str =str[:-1]+"],\"speech\": \"Here you go\",\"displayText\": \"\",\"data\": \"data\",\"contextOut\": [],\
