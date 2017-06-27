@@ -67,7 +67,7 @@ def processRequest(req):
          max_currency=""
     if max_budget is None:
          max_budget=""
-    searchQuery=str(bhk)+" "+str(unit)+" "+str(propertyType)+" near "+str(location)+" "+str(max_budget)+" "+str(max_currency)
+    searchQuery=str(bhk)+" "+str(unit)+" "+str(propertyType)+" near "+str(location)+" "+str(max_budget)+" "+str(max_currency)+" site www.brigadegroup.com"
     print(searchQuery)
     result=search(searchQuery)
     
