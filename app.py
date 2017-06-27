@@ -58,8 +58,12 @@ def processRequest(req):
     resolvedQuery=req.get("result").get("resolvedQuery")
     location =result.get("location")
     dict["location"]=location
-    bhk =result.get("property-size").get("number")
-    unit =result.get("property-size").get("unit")
+    try:
+        bhk =result.get("property-size").get("number")
+        unit =result.get("property-size").get("unit")
+    except:
+        bhk=1
+        unit="bhk"    
     dict["bhk"]=bhk
     propertyType =result.get("property-type")
     dict["propertyType"]=bhk
