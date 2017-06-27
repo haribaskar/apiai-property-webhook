@@ -59,18 +59,29 @@ def processRequest(req):
     
     try:
         bhk =result.get("property-size").get("number")
-        unit =result.get("property-size").get("unit")
-        propertyType =result.get("property-type")
-        max_currency =result.get("max_currency")
-        max_budget =result.get("max_budget")
-        location =result.get("location")
     except:
         bhk=1
-        unit="bhk"    
+       
+    try:
+        unit =result.get("property-size").get("unit")
+    except:
+        unit="bhk"  
+    try:
+        propertyType =result.get("property-type")
+    except:
         propertyType ="apartment"
-        location="near me"
+    try:
+        max_currency =result.get("max_currency")
+    except:
         max_currency=""
-        max_budget=""
+    try:
+        max_budget =result.get("max_budget")
+    except:
+         max_budget=""
+    try:
+        location =result.get("location")
+    except:
+        location="me"
     dict["bhk"]=bhk
     
     dict["propertyType"]=bhk
