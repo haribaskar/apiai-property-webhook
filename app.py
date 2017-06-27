@@ -53,19 +53,26 @@ def processRequest(req):
     #    return {"action is empty"}
     dict={}
     result = req.get("result").get("parameters")
-    max_currency =result.get("max_currency")
-    max_budget =result.get("max_budget")
+    
     resolvedQuery=req.get("result").get("resolvedQuery")
-    location =result.get("location")
-    dict["location"]=location
+    
+    
     try:
         bhk =result.get("property-size").get("number")
         unit =result.get("property-size").get("unit")
+        propertyType =result.get("property-type")
+        max_currency =result.get("max_currency")
+        max_budget =result.get("max_budget")
+        location =result.get("location")
     except:
         bhk=1
         unit="bhk"    
+        propertyType ="apartment"
+        location="near me"
+        max_currency=""
+        max_budget=""
     dict["bhk"]=bhk
-    propertyType =result.get("property-type")
+    
     dict["propertyType"]=bhk
     if max_currency is None:
          max_currency=""
