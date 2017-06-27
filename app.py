@@ -143,7 +143,7 @@ def search(query):
 
 def buildJson(v,w):
     
-    str=""
+    str="Here you go :)   \n"
     for i in range(len(v)):
             str +=w[i]+"\n"+v[i]
 
